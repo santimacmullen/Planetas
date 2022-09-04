@@ -25,14 +25,6 @@ int main() {
     map_planet_motion(betasoides, W_BETASOIDES, R_BETASOIDES, CLOCKWISE);
     map_planet_motion(vulcanos, W_VULCANOS, R_VULCANOS, COUNTER_CLOCKWISE);
 
-
-    planets[0].x[0] = 4;
-    planets[0].y[0] = 0;
-    planets[1].x[0] = 0;
-    planets[1].y[0] = 4;
-    planets[2].x[0] = 0;
-    planets[2].y[0] = 0;
-    check_triangle_area(planets);
     while(day != LEN_FORECAST) {
 
         switch(check_planets_alignment(planets)) {
@@ -40,6 +32,7 @@ int main() {
             case NOT_ALIGNED:
                 if(check_sun_inside(planets)) {
                     prediction.rain++;
+
                     if(check_triangle_perimeter(planets) > prediction.peak_value) {
                         prediction.peak_day = day;
                         prediction.peak_value = check_triangle_perimeter(planets);
@@ -59,7 +52,6 @@ int main() {
                 prediction.error++;
                 break;
             }
-            
         day++;
     }
 
@@ -72,7 +64,7 @@ int main() {
     printf(" - Cantidad de días de condiciones óptimas: %d\n", prediction.optimum);
     printf(" - Cantidad de días de sequía: %d\n", prediction.drought);
     printf(" - Cantidad de días de lluvia: %d\n", prediction.rain);
-    printf(" - Día pico de lluvia: %d\n", prediction.peak_day);
+    printf(" - Día pico de lluvia: %d\n\n", prediction.peak_day);
     
     return 0;
 }
